@@ -1,0 +1,115 @@
+﻿Acinonyx jubatus
+Ailuropoda melanoleuca
+Aotus nancymaae
+Balaenoptera musculus
+Bison bison bison
+Bos indicus
+Bos indicus x Bos taurus
+Bos mutus
+Bos mutus grunniens
+Bos taurus
+Callithrix jacchus
+Callorhinus ursinus
+Camelus bactrianus
+Camelus ferus
+Canis lupus dingo
+Canis lupus familiaris
+Capra hircus
+Carlito syrichta
+Castor canadensis
+Catagonus wagneri
+Cavia porcellus
+Cebus imitator
+Cercocebus atys
+Cervus hanglu yarkandensis
+Chinchilla lanigera
+Chlorocebus sabaeus
+Chrysochloris asiatica
+Colobus angolensis palliatus
+Delphinapterus leucas
+Dipodomys ordii
+Enhydra lutris kenyoni
+Equus asinus
+Equus caballus
+Felis catus
+Galemys pyrenaicus
+Gorilla gorilla gorilla
+Heterocephalus glaber
+Hipposideros armiger
+Homo sapiens
+Ictidomys tridecemlineatus
+Jaculus jaculus
+Leptonychotes weddellii
+Lipotes vexillifer
+Loxodonta africana
+Lynx canadensis
+Lynx pardinus
+Macaca fascicularis
+Macaca mulatta
+Macaca nemestrina
+Mandrillus leucophaeus
+Marmota marmota marmota
+Marmota monax
+Microcebus murinus
+Molossus molossus
+Monodelphis domestica
+Moschus moschiferus
+Muntiacus reevesi
+Mus musculus
+Mus spicilegus
+Mustela putorius furo
+Myotis lucifugus
+Myotis myotis
+Nannospalax galili
+Neomonachus schauinslandi
+Neophocaena asiaeorientalis asiaeorientalis
+Neovison vison
+Nomascus leucogenys
+Nyctereutes procyonoides
+Octodon degus
+Odobenus rosmarus divergens
+Odocoileus virginianus texanus
+Ornithorhynchus anatinus
+Orycteropus afer afer
+Oryctolagus cuniculus
+Otolemur garnettii
+Ovis ammon polii
+Ovis aries
+Pan paniscus
+Pan troglodytes
+Panthera leo
+Panthera tigris altaica
+Papio anubis
+Peromyscus maniculatus bairdii
+Phascolarctos cinereus
+Phocoena sinus
+Phyllostomus discolor
+Physeter macrocephalus
+Piliocolobus tephrosceles
+Pipistrellus kuhlii
+Pongo abelii
+Prolemur simus
+Propithecus coquereli
+Pteropus alecto
+Pteropus vampyrus
+Puma concolor
+Rattus norvegicus
+Rhinolophus ferrumequinum
+Rhinopithecus bieti
+Rhinopithecus roxellana
+Rousettus aegyptiacus
+Saimiri boliviensis boliviensis
+Sapajus apella
+Sarcophilus harrisii
+Sciurus vulgaris
+Spermophilus dauricus
+Suricata suricatta
+Sus scrofa
+Theropithecus gelada
+Trichechus manatus latirostris
+Tursiops truncatus
+Urocitellus parryii
+Ursus maritimus
+Vicugna pacos
+Vombatus ursinus
+Vulpes vulpes

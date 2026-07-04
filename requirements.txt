@@ -1,0 +1,16 @@
+# Python dependencies for the mammalian protein-domain / TimeTree phylogeny analysis.
+# Developed and tested on Python 3.11. The ">=" entries are minimum floors; the
+# "tested:" comments record the versions used to produce the figures in the paper.
+# If you archive this for a DOI, pin these to exact versions with `pip freeze`.
+
+numpy>=1.20             # tested: 2.4.2
+pandas>=1.3             # tested: 3.0.1
+scipy>=1.7              # tested: 1.17.0
+scikit-learn>=1.0       # tested: 1.8.0
+imbalanced-learn>=0.12  # RandomOverSampler for the Part-2 classifier; tested: 0.14.1
+ete3>=3.1               # Newick I/O, patristic distances, re-rooting; tested: 3.1.3
+biopython>=1.79         # Neighbor-Joining baseline in baseline_trees_presence_absence.py
+statsmodels>=0.14       # Benjamini-Hochberg FDR correction; tested: 0.14.6
+matplotlib>=3.4         # tested: 3.10.8
+seaborn>=0.11           # tested: 0.13.2
+Pillow>=9.0             # panel montage in figures/render_composites.py
