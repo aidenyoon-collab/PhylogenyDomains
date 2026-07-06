@@ -2,7 +2,7 @@
 """
 Independent audit of outputs from classification_cv_tree_reconstruction.py.
 
-Re-derives species-blocked folds from the same data + config, checks train/test
+Re-derives species-blocked folds from the same data & config, checks train/test
 disjointness and mask semantics (label leakage), cross-checks CSV/NPY/matrix/tree
 consistency, and writes verification_report.txt / verification_report.json.
 
