@@ -4,7 +4,7 @@ Downstream biological interpretation: domain importance vs mammal clades.
 
 Uses the SAME preprocessing and pairwise RF setup as classification_cv_tree_reconstruction:
 relative frequencies per species, platypus excluded, zero-variance domains dropped,
-pairwise L1 (cityblock) per domain, StandardScaler + RandomOverSampler + RandomForest.
+pairwise L1 (cityblock) per domain, StandardScaler & RandomOverSampler & RandomForest.
 
 Run from project root:
   python3 scripts/domain_clade_interpretation.py [--scheme SCHEME_4B] [--n-folds 5] [--n-estimators 200] [--random-state 42]
