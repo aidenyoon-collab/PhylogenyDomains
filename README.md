@@ -15,7 +15,7 @@ There is nothing to install as a package and no build step. Each script is a sta
 
 After intersecting the domain matrix with the tree tips and dropping the platypus outgroup, **107 species** are analysed throughout, with **8,020 domains** left after removing zero-variance columns, giving **5,671 unordered species pairs**. A copy of `MammalsPhylogeny.nwk` also sits at the repository root because the classification pipeline reads it from there.
 
-## Part 1 - Domain-content distance vs divergence time
+## Part 1 Domain-content distance vs divergence time
 
 Motivated by a random-walk (Brownian-motion) model in which the expected squared difference in a domain's count grows linearly with divergence time.
 
@@ -24,7 +24,7 @@ Motivated by a random-walk (Brownian-motion) model in which the expected squared
 - **`scripts/test_metric_variants.py`** - compares six ways of scaling the per-domain difference (squared, linear, sqrt, log, and two fractional powers) and writes the ranked domain list (`TopDomains.txt`) that some Part-1 scripts consume. Run this once before the scripts that need `TopDomains.txt`.
 - **`scripts/mantel_significance.py`** - the honest significance test for the distance-time correlation. Because the 5,671 pairs are not independent, p-values come from a Mantel test that permutes species labels (9,999 permutations), so the 107 species - not the pairs - are the unit.
 
-## Part 2 - Classification and tree reconstruction
+## Part 2 Classification and tree reconstruction
 
 - **`scripts/classification_cv_tree_reconstruction.py`** - the main pipeline, and the source of the headline result. Features are the absolute per-domain count differences for each pair; the target is the patristic distance binned into four ordinal classes (`SCHEME_4B`, cutoffs at 150/175/190 MY). A random forest is trained under species-blocked, clade-stratified 5-fold cross-validation (no species in a test fold appears in any training pair), with random oversampling on the training folds only. Predicted classes are mapped back to millions of years using train-fold means, a UPGMA tree is built from the predicted distances, and it is compared to the reference by Robinson-Foulds. Outputs: confusion matrix, distance-recovery scatter, predicted tree, and `run_config.json`.
 - **`scripts/classification_cv_tree_reconstruction_include_platypus.py`** - the same pipeline with the platypus outgroup kept in, for the sensitivity check.
@@ -32,7 +32,7 @@ Motivated by a random-walk (Brownian-motion) model in which the expected squared
 - **`scripts/manual_distance_binning_search.py`** - the search over bin schemes (3-6 bins) that settled on the four-class cutoffs. Equal-frequency (quantile) binning fails here because a large block of pairs is tied at ~188 MY, which no quantile split can separate; this is why the cutoffs are placed by hand.
 - **`scripts/pairwise_distance_classification_oversampling.py`** - compares the binning schemes against the class-imbalance strategies (no correction, class weights, random oversampling, SMOTE), which is how random oversampling was chosen.
 
-## Part 3 - Clade enrichment and interpretation
+## Part 3 Clade enrichment and interpretation
 
 - **`scripts/domain_clade_enrichment.py`** - per-clade enrichment. For each clade and domain it compares the per-species counts in that clade against all other species with a Mann-Whitney U test, correcting across domains with the Benjamini-Hochberg FDR. Enrichment uses absolute copy number; direction (enriched vs depleted) is the sign of the log2 fold-change.
 - **`scripts/filter_clade_enrichment_secondary.py`** - keeps the hits that pass FDR < 0.05 and |log2 fold-change| ≥ 0.5.
