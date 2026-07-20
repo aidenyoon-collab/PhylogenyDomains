@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
 """
 Species-Blocked 5-Fold Random Forest Classifier + Quantile->Time Mapping + Tree Reconstruction
-==============================================================================================
 
 GOAL
-----
 1) Ensure cross-validation is SPECIES-LEVEL (no leakage across folds).
 2) Use quantile binning of patristic distances (q=5) to create class labels.
 3) Report and plot the MY range for each quantile.
 4) Train RandomForestClassifier and evaluate with species-blocked folds.
-5) Reconstruct a tree from predicted distances and compare to reference.
+5) Reconstruct a tree from predicted distances and compare reference.
 
-Inputs: data_raw/MammalDomainCount.tsv, data_raw/MammalsList.txt, MammalsPhylogeny.nwk
+Inputs data_raw/MammalDomainCount.tsv, data_raw/MammalsList.txt, MammalsPhylogeny.nwk
 """
 
 from __future__ import annotations
