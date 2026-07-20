@@ -3,16 +3,6 @@
 95% confidence intervals for the Part-1 domain-distance vs TimeTree patristic
 correlations, via a delete-one-species jackknife.
 
-The Part-1 correlations (Spearman rho and Pearson r of the domain-content
-distance D(N=50) against patristic distance) are computed over 5,671
-species-PAIRS from 107 SPECIES. Pairs that share a species are not independent,
-so a precision estimate must resample at the SPECIES level, not the pair level.
-This script drops each species in turn, recomputes the correlation over the
-remaining pairs, and forms the jackknife standard error and a
-normal-approximation 95% CI. It reuses the exact Part-1 inputs from
-mantel_significance.part1_inputs (same domain panel, weighting and <5%
-prevalence filter as the headline analysis), so the point estimates match the
-values in domain_time_correlations.tsv at N=50.
 
 Prerequisite: run domain_time_scatter.py first so that domain_time_domainStats.tsv,
 domain_time_correlations.tsv and data_raw/TopDomains.txt exist (the same inputs
