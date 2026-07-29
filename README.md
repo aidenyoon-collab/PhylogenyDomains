@@ -2,16 +2,16 @@
 
 Code and data for our study of how much of the mammalian phylogeny can be recovered from protein-domain content alone, and which domains carry that signal. For each of ~100 mammals we take the number of copies of every Pfam protein domain in its proteome and ask three questions: (1) how well does a distance built from those counts track divergence time; (2) can a classifier trained on pairwise domain differences recover the divergence structure and a clade-level tree; and (3) which domains distinguish the major clades, and what do they do biologically. The short answer is that domain content carries a real but coarse signal - it separates the deep lineages and recovers the broad clades, but not fine branching order - and the informative domains fall into a few interpretable functional groups (diet/metabolism, immunity, reproduction).
 
-The per-species domain counts come from [UMAP of Life](https://umap.mcdb.ucla.edu); the reference timetree is from [TimeTree](http://www.timetree.org) (Kumar et al. 2017, 2022). The full methods and results are described in the accompanying manuscript (Yoon & Pellegrini, in preparation).
+The per-species domain counts are proteome-wide Pfam-domain counts computed from UniProtKB reference proteomes (BUSCO completeness > 80%), annotated for Pfam families via InterPro; the reference timetree is from [TimeTree](http://www.timetree.org) (Kumar et al. 2017, 2022). The full methods and results are described in the accompanying manuscript (Yoon & Pellegrini, in preparation).
 
 There is nothing to install as a package and no build step. Each script is a standalone analysis run from the command line with the standard scientific-Python stack (`requirements.txt`); it reads the input files under `data_raw/` and writes figures and tables under `results/`. Set `MPLCONFIGDIR` if you want to avoid matplotlib cache warnings.
 
 ## Data
 
-- **`data_raw/MammalDomainCount.tsv`** - per-species Pfam domain copy numbers, 23,656 domains × 115 species, downloaded from UMAP of Life. Each entry is the number of times a Pfam domain occurs across that species' proteome. (The first line is a header banner, so loaders use `skiprows=1` and then transpose.)
+- **`data_raw/MammalDomainCount.tsv`** - per-species Pfam domain copy numbers, 23,656 domains × 115 species, computed from UniProtKB reference proteomes annotated for Pfam via InterPro. Each entry is the number of times a Pfam domain occurs across that species' proteome. (The first line is a header banner, so loaders use `skiprows=1` and then transpose.)
 - **`data_raw/MammalsPhylogeny.nwk`** - the TimeTree reference (Newick, 108 tips). Branch lengths are calibrated so that a pairwise patristic distance is roughly twice the two species' divergence time in millions of years; `verify_timetree_distances.py` checks this.
 - **`data_raw/MammalsList.txt`** - the species list submitted to TimeTree.
-- **`data_raw/MammalsUMAP.nwk`** - an alternative domain-based reference tree used by some of the comparison scripts.
+- **`data_raw/MammalsDomainTree.nwk`** - an alternative domain-based reference tree used by some of the comparison scripts.
 
 After intersecting the domain matrix with the tree tips and dropping the platypus outgroup, **107 species** are analysed throughout, with **8,020 domains** left after removing zero-variance columns, giving **5,671 unordered species pairs**. A copy of `MammalsPhylogeny.nwk` also sits at the repository root because the classification pipeline reads it from there.
 
@@ -90,7 +90,7 @@ The random seed is fixed (`RANDOM_STATE = 42`) so the cross-validation folds, ov
 
 ## Data and code availability
 
-- **Domain counts:** UMAP of Life . `MammalDomainCount.tsv` is included here for convenience; the authoritative source is UMAP of Life.
+- **Domain counts:** proteome-wide Pfam-domain counts from UniProtKB reference proteomes, annotated for Pfam via InterPro. `MammalDomainCount.tsv` is included here for convenience.
 - **Reference phylogeny:** TimeTree - Kumar S, Stecher G, Suleski M, Hedges SB (2017), *Mol Biol Evol* 34(7):1812-1819; and Kumar S et al. (2022), *Mol Biol Evol* 39(8):msac174.
 - **This repository** is archived at `[Zenodo DOI - to be added on release]`.
 

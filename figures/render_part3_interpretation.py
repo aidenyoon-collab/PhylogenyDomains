@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Part 3 (biological interpretation) publication figures for ScatterUMAP.
+Part 3 (biological interpretation) publication figures for PhylogenyDomains.
 
 Renders THREE figures, each ONLY from real saved pipeline outputs
 (never fabricate, jitter, trim, or alter data):

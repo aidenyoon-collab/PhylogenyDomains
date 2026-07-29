@@ -1,5 +1,5 @@
 """
-Reusable publication figure style for ScatterUMAP - import this from every figure
+Reusable publication figure style for PhylogenyDomains - import this from every figure
 script so typography, sizing, and export are consistent (consistency is half of why
 a figure set reads as "publication quality").
 

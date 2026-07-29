@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Overview / methods schematic for the ScatterUMAP paper (new Figure 1).
+Overview / methods schematic for the PhylogenyDomains paper (new Figure 1).
 
 A workflow diagram - NOT a data figure. It draws boxes + arrows describing the
 pipeline; the only "data" are the fixed dataset sizes (107 species, 8,020
@@ -59,7 +59,7 @@ def render_schematic() -> str:
 
     # ---- Inputs (central-left, branch up to Part 1/2 and down to Part 3) ----
     _box(ax, 0.11, 0.60, 0.18, 0.16,
-         "PFAM domain counts\n(UMAP of Life)\n107 species\n× 8,020 domains",
+         "Pfam domain counts\n107 species\n× 8,020 domains",
          c_data, weight="bold", fs=6.6)
     _box(ax, 0.11, 0.22, 0.18, 0.14,
          "TimeTree reference\nphylogeny\n(patristic dist., MY)",

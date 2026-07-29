@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Part-1 (theory) publication figures for ScatterUMAP.
+Part-1 (theory) publication figures for PhylogenyDomains.
 
 Produces THREE figures, all rendered ONLY from real saved pipeline outputs
 (never fabricate, jitter, trim, or alter data):
