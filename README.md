@@ -99,4 +99,4 @@ If you use this code or data, please cite:
 
 > Yoon A, Pellegrini M. Phylogenetic signal in mammalian protein-domain copy number: recovering divergence depth and broad clades. In preparation.
 
-Corresponding author: Matteo Pellegrini (matteop@mcdb.ucla.edu), Department of Molecular, Cell, and Developmental Biology, University of California, Los Angeles.
+Corresponding author: Matteo Pellegrini (matteope@gmail.com), Department of Molecular, Cell, and Developmental Biology, University of California, Los Angeles.
