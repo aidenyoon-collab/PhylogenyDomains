@@ -53,9 +53,7 @@ Motivated by a random-walk (Brownian-motion) model in which the expected squared
 ## Figures
 
 - **`figures/render_part1.py`, `render_part2.py`, `render_part3_enrichment.py`, `render_part3_heatmap.py`, `render_part3_interpretation.py`** - render the individual panels from the saved results.
-- **`figures/render_composites.py`** - assembles the multi-panel manuscript figures from those panels.
-- **`figures/render_schematic.py`** - the workflow schematic.
-- **`figures/pubstyle.py`** - shared plotting style (fonts, sizes, the clade colour palette).
+- **`figures/render_composites.py`** - assembles the multi-panel manuscript figures from those panels.- **`figures/pubstyle.py`** - shared plotting style (fonts, sizes, the clade colour palette).
 - **`figures/make_itol_annotation.py`** - writes the iTOL annotation used to colour the reference and predicted trees by clade (the radial trees themselves are exported from iTOL; see `figures/paper_assets/`).
 - **`figures/pfam_name_fixes.py`** - a small lookup that tidies a few Pfam domain names for display.
 
