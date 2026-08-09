@@ -96,13 +96,13 @@ def render_correlation_vs_N() -> str:
     c_var_p = pubstyle.OKABE_ITO[3]    # rose   - variance Pearson
 
     ax.plot(plot_df["N"], plot_df["pearson_alpha"], "-o", color=c_alpha_p,
-            markersize=3, lw=1.1, label="alpha, Pearson (primary)", zorder=6)
+            markersize=3, lw=1.1, label="w = slope, Pearson (primary)", zorder=6)
     ax.plot(plot_df["N"], plot_df["spearman_alpha"], "-s", color=c_alpha_s,
-            markersize=3, lw=1.1, label="alpha, Spearman (primary)", zorder=6)
+            markersize=3, lw=1.1, label="w = slope, Spearman (primary)", zorder=6)
     ax.plot(plot_df["N"], plot_df["pearson_var"], "--o", color=c_var_p,
-            markersize=2.5, lw=0.9, label="variance, Pearson", zorder=4)
+            markersize=2.5, lw=0.9, label="w = variance, Pearson", zorder=4)
     ax.plot(plot_df["N"], plot_df["spearman_var"], "--s", color=c_var_s,
-            markersize=2.5, lw=0.9, label="variance, Spearman", zorder=4)
+            markersize=2.5, lw=0.9, label="w = variance, Spearman", zorder=4)
 
     ax.set_xscale("log")
     ax.set_xlabel("number of top domains (N)")
@@ -199,7 +199,7 @@ def render_scatter_N50(use_alpha=True) -> str:
     from statsmodels.nonparametric.smoothers_lowess import lowess
 
     weight = "alpha" if use_alpha else "var"           # TSV column suffix + filename
-    label = "alpha-weighted" if use_alpha else "variance-weighted"
+    label = "slope" if use_alpha else "variance"
     T_vec, D, panel = recompute_distance_N50(use_alpha=use_alpha)
 
     # ---- FIDELITY ANCHOR (required) ----
@@ -264,8 +264,8 @@ def render_scatter_N50(use_alpha=True) -> str:
             lw=1.4, label="LOWESS", zorder=8)
 
     ax.set_xlabel("TimeTree patristic distance (MY)")
-    ax.set_ylabel(f"domain distance D(N=50, {label})")
-    ax.set_title(f"{label.capitalize()} domain distance vs TimeTree distance (N=50)")
+    ax.set_ylabel("domain distance D(N=50)")
+    ax.set_title(f"Domain distance vs TimeTree distance (N=50; w = {label})")
 
     # Open a little headroom at the top of the (log) y-axis so the stats box and
     # the LOWESS legend have clear whitespace and never sit over hexbins. This is
