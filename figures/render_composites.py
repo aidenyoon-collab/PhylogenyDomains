@@ -11,7 +11,7 @@ renderer produced (each of which carries its own fidelity/integrity check).
 
 Composites (Nature double-column width; panels kept at native aspect):
   fig2_part1_correlation     (a) correlation-vs-N  (b) alpha N=50  (c) variance N=50
-  fig3_part2_classifier      (a) confusion matrix  (b) distance recovery
+  fig3_part2_classifier      (a) distance distribution  (b) confusion matrix  (c) distance recovery
   fig4_part2_trees           (a) reference TimeTree  (b) predicted domain UPGMA  [+ color-sync note]
   fig5_part3_domains         (a) z-score heatmap (b) ANOVA boxplots
                              (c) RF importance (d) RF-ANOVA concordance (e) volcano (Primates)
@@ -93,10 +93,13 @@ def fig_part1():
 
 def fig_part2_classifier():
     compose(
-        [[(f("part2_confusion_matrix.png"), "a"),
-          (f("part2_distance_recovery.png"), "b")]],
+        [[(f("part2_distance_distribution.png"), "a")],
+         [(f("part2_confusion_matrix.png"), "b"),
+          (f("part2_distance_recovery.png"), "c")]],
         f("fig3_part2_classifier"),
         title="Random Forest classifier recovers pairwise divergence-distance classes",
+        fig_width=6.5,
+        hspace=0.06,
     )
 
 

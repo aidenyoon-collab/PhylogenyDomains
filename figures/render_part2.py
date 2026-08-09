@@ -12,6 +12,10 @@ the saved predictions (cell counts / recall %). Predicted distances are the trai
 class centroids straight out of class_representative_distances.csv.
 
 Outputs (each as vector .pdf + 600-dpi .png via pubstyle.save):
+  figures/part2_distance_distribution     distribution of the true pairwise patristic
+                                          distances, with the four ordinal class regions
+                                          and the 150/175/190 MY cutoffs marked (justifies
+                                          the manual, non-quantile bin edges)
   figures/part2_confusion_matrix          confusion matrix, the honest headline for a
                                           4-class classifier (counts + row-% recall)
   figures/part2_distance_recovery         true patristic distance per PREDICTED class
@@ -68,6 +72,44 @@ def load():
     mu_k = dict(zip(mu["label"], mu["mu_k_MY"]))
     summ = json.load(open(os.path.join(CV, "comparison_summary.json")))
     return pred, mu_k, summ
+
+
+def fig_distance_distribution(pred):
+    """Distribution of the true pairwise patristic distances (MY), with the four ordinal
+    class regions shaded and the SCHEME_4B cutoffs (150/175/190 MY) marked. This panel is
+    the empirical justification for the manual, non-quantile cut points: a spike of pairs
+    near 188 MY holds ~43% of all pairs (class D2), which equal-frequency binning cannot
+    split. The distances are the same full-precision true_my values used by the other
+    panels; nothing is altered, jittered, or trimmed."""
+    T = pred["true_my"].values.astype(float)
+    edges = [0.0, 150.0, 175.0, 190.0, np.inf]
+    counts = [int(((T >= edges[i]) & (T < edges[i + 1])).sum()) for i in range(4)]
+
+    cols = pubstyle.OKABE_ITO
+    fig, ax = plt.subplots(figsize=(pubstyle.DOUBLE_COL, 0.40 * pubstyle.DOUBLE_COL))
+    spans = [(0, 150), (150, 175), (175, 190), (190, T.max() + 2)]
+    for (lo, hi), c in zip(spans, cols[:4]):
+        ax.axvspan(lo, hi, color=c, alpha=0.10, lw=0)
+    ax.hist(T, bins=np.arange(0, T.max() + 2, 2), color="0.35", edgecolor="none", zorder=3)
+    for cut in (150, 175, 190):
+        ax.axvline(cut, color="0.15", ls="--", lw=0.9, zorder=4)
+    ax.set_xlabel("TimeTree pairwise patristic distance (MY)")
+    ax.set_ylabel("species pairs")
+    ax.set_title("Distribution of pairwise divergence distances")
+    ymax = ax.get_ylim()[1]
+    ax.set_ylim(0, ymax * 1.12)
+
+    # Bold class labels. D0, D1 and D3 sit inside their regions; the D2 spike is too
+    # narrow to hold text, so its label sits in open space to the right with a short
+    # leader line to the top of the spike.
+    for x, yf, k in [(72, 0.99, 0), (162, 0.60, 1), (258, 0.99, 3)]:
+        ax.annotate(f"D{k}\n(n={counts[k]})", xy=(x, ymax * yf), ha="center", va="top",
+                    fontsize=7, fontweight="bold", zorder=6)
+    ax.annotate(f"D2\n(n={counts[2]})", xy=(190, ymax * 0.86), xytext=(208, ymax * 0.99),
+                ha="left", va="top", fontsize=7, fontweight="bold", zorder=6,
+                arrowprops=dict(arrowstyle="-", lw=0.7, color="0.15"))
+    fig.tight_layout()
+    return pubstyle.save(fig, os.path.join(OUT, "part2_distance_distribution")), plt.close(fig)
 
 
 def fig_confusion(pred):
@@ -187,13 +229,14 @@ def main():
         "predicted_distance_MY does not match class_representative_distances.csv centroids"
     assert len(pred) == summ["n_pairs"], \
         f"pair count {len(pred)} != official n_pairs {summ['n_pairs']}"
+    fig_distance_distribution(pred)
     fig_confusion(pred)
     fig_distance_recovery(pred, mu_k)
     fig_supp_true_vs_predicted(pred, summ)
     print(f"n={len(pred)} pairs (official n_pairs={summ['n_pairs']}); "
           f"pearson_r={summ['pearson_r']:.6f}, spearman_r={summ['spearman_r']:.6f}")
-    print(f"wrote part2_confusion_matrix, part2_distance_recovery, "
-          f"supp_part2_true_vs_predicted (.pdf + .png) to {OUT}")
+    print(f"wrote part2_distance_distribution, part2_confusion_matrix, "
+          f"part2_distance_recovery, supp_part2_true_vs_predicted (.pdf + .png) to {OUT}")
 
 
 if __name__ == "__main__":
