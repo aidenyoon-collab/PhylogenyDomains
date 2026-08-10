@@ -1,4 +1,4 @@
-# Mammalian phylogenetic signal in protein-domain copy number
+# Evolution of mammalian protein domain copy numbers
 
 Code and data for our study of how much of the mammalian phylogeny can be recovered from protein-domain content alone, and which domains carry that signal. For each of ~100 mammals we take the number of copies of every Pfam protein domain in its proteome and ask three questions: (1) how well does a distance built from those counts track divergence time; (2) can a classifier trained on pairwise domain differences recover the divergence structure and a clade-level tree; and (3) which domains distinguish the major clades, and what do they do biologically. The short answer is that domain content carries a real but coarse signal - it separates the deep lineages and recovers the broad clades, but not fine branching order - and the informative domains fall into a few interpretable functional groups (diet/metabolism, immunity, reproduction).
 
