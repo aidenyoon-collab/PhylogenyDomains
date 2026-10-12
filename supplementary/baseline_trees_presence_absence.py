@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Supplementary robustness analysis (reviewer-anticipated):
+Supplementary robustness analysis:
 
   (1) PRESENCE/ABSENCE vs COPY-NUMBER - does binarized domain presence/absence
       carry comparable phylogenetic signal to copy-number abundance? (Yang et al.

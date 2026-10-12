@@ -2,7 +2,7 @@
 
 Code and data for our study of how much of the mammalian phylogeny can be recovered from protein-domain content alone, and which domains carry that signal. For each of ~100 mammals we take the number of copies of every Pfam protein domain in its proteome and ask three questions: (1) how well does a distance built from those counts track divergence time; (2) can a classifier trained on pairwise domain differences recover the divergence structure and a clade-level tree; and (3) which domains distinguish the major clades, and what do they do biologically. The short answer is that domain content carries a real but coarse signal - it separates the deep lineages and recovers the broad clades, but not fine branching order - and the informative domains fall into a few interpretable functional groups (diet/metabolism, immunity, reproduction).
 
-The per-species domain counts are proteome-wide Pfam-domain counts computed from UniProtKB reference proteomes (BUSCO completeness > 80%), annotated for Pfam families via InterPro; the reference timetree is from [TimeTree](http://www.timetree.org) (Kumar et al. 2017, 2022). The full methods and results are described in the accompanying manuscript (Yoon & Pellegrini, in preparation).
+The per-species domain counts are proteome-wide Pfam-domain counts computed from UniProtKB reference proteomes (BUSCO completeness > 80%), annotated for Pfam families via InterPro; the reference timetree is from [TimeTree](http://www.timetree.org) (Kumar et al. 2017, 2022). The full methods and results are described in the accompanying manuscript (Yoon & Pellegrini).
 
 There is nothing to install as a package and no build step. Each script is a standalone analysis run from the command line with the standard scientific-Python stack (`requirements.txt`); it reads the input files under `data_raw/` and writes figures and tables under `results/`. Set `MPLCONFIGDIR` if you want to avoid matplotlib cache warnings.
 
@@ -13,7 +13,7 @@ There is nothing to install as a package and no build step. Each script is a sta
 - **`data_raw/MammalsList.txt`** - the species list submitted to TimeTree.
 - **`data_raw/MammalsDomainTree.nwk`** - an alternative domain-based reference tree used by some of the comparison scripts.
 
-After intersecting the domain matrix with the tree tips and dropping the platypus outgroup, **107 species** are analysed throughout, with **8,020 domains** left after removing zero-variance columns, giving **5,671 unordered species pairs**. A copy of `MammalsPhylogeny.nwk` also sits at the repository root because the classification pipeline reads it from there.
+After intersecting the domain matrix with the tree tips and dropping the platypus outgroup, **106 species** are analysed throughout, with **7,976 domains** left after removing zero-variance columns, giving **5,565 unordered species pairs**. A copy of `MammalsPhylogeny.nwk` also sits at the repository root because the classification pipeline reads it from there.
 
 ## Domain-content distance vs divergence time
 
@@ -22,7 +22,7 @@ Motivated by a random-walk (Brownian-motion) model in which the expected squared
 - **`scripts/domain_time_scatter.py`** - the core of Part 1. For each species pair it builds a distance summed over the top-N domains (ranked by how strongly their squared count difference tracks divergence time), under two weightings - by cross-species variance and by the regression slope (`alpha`). It sweeps N, and writes the correlation tables and the density scatter plots. Spearman is the primary metric because the small-N distances are zero-inflated.
 - **`scripts/select_best_n.py`** - reads the correlation table and recommends an N.
 - **`scripts/test_metric_variants.py`** - compares six ways of scaling the per-domain difference (squared, linear, sqrt, log, and two fractional powers) and writes the ranked domain list (`TopDomains.txt`) that some Part-1 scripts consume. Run this once before the scripts that need `TopDomains.txt`.
-- **`scripts/mantel_significance.py`** - the honest significance test for the distance-time correlation. Because the 5,671 pairs are not independent, p-values come from a Mantel test that permutes species labels (9,999 permutations), so the 107 species - not the pairs - are the unit.
+- **`scripts/mantel_significance.py`** - the honest significance test for the distance-time correlation. Because the 5,565 pairs are not independent, p-values come from a Mantel test that permutes species labels (9,999 permutations), so the 106 species - not the pairs - are the unit.
 
 ## Classification and tree reconstruction
 
@@ -49,6 +49,17 @@ Motivated by a random-walk (Brownian-motion) model in which the expected squared
 
 - **`supplementary/baseline_trees_presence_absence.py`** - recomputes the domain distance from binarized presence/absence (Jaccard, Hamming) and under the centered-log-ratio (Aitchison) transform, and builds naive UPGMA and Neighbor-Joining trees directly, with no supervised step. This shows the conclusions do not depend on copy number vs presence/absence, on the compositional closure, or on the classifier - every character and method plateaus at a similar Robinson-Foulds distance, which locates the limit in the character (domain content is coarse and homoplasy-prone) rather than the model.
 - **`supplementary/species_blocked_rf_quantile_tree.py`** - a quantile-binning variant of the Part-2 tree.
+- **`supplementary/nested_cv_feature_selection.py`** - repeats the Part-1 distance with domain ranking, filtering and weighting redone inside every training fold, scoring only pairs whose two species were both held out, against a permutation null that repeats the whole nested procedure. This separates the signal from the selection.
+- **`supplementary/taxonomy_only_control.py`** - replaces the domain features with encodings of clade membership alone, and separately with Gaussian noise of the same dimension, to ask how much of the classifier's accuracy is a restatement of taxonomy.
+- **`supplementary/within_clade_discrimination.py`**, **`within_between_clade_accuracy.py`** - performance inside a single clade, where taxonomy is constant, including leave-both-species-out prediction of continuous divergence time per clade.
+- **`supplementary/within_placental_signal.py`** - the Part-1 correlation decomposed by pair category, and the result of re-selecting the domain panel on placental pairs alone.
+- **`supplementary/baseline_comparison_unified.py`** - every unsupervised distance we can build from domain content, scored against the reference phylogeny on one cohort under one scoring rule, beside the supervised arms.
+- **`supplementary/alternative_architectures.py`** - six classifier architectures through the identical species-blocked protocol, each carried through to a tree.
+- **`supplementary/model_and_normalization_sensitivity.py`** - alternative copy-number transformations, difference-scaling exponents and normalization bases, the random-walk adequacy check on the count and log scales, the per-domain index of dispersion, and the proteome-size association.
+- **`supplementary/ordinal_distance_trees.py`**, **`continuous_distance_trees.py`** - trees from the predicted class index and from continuous predictions, with tie-break sensitivity, under UPGMA, neighbor joining and balanced minimum evolution.
+- **`supplementary/taxon_sampling_platypus.py`** - the effect of retaining or excluding the platypus outgroup, on each normalization basis.
+- **`supplementary/phylo_gls_anova.py`**, **`phylogenetic_anova.py`** - the clade comparisons re-tested under phylogenetic generalized least squares across Pagel's lambda, with the null rebuilt on the reference tree.
+- **`supplementary/me_tree.py`** - a balanced minimum-evolution tree search, used by the continuous-distance reconstruction.
 
 ## Figures
 
@@ -91,12 +102,12 @@ The random seed is fixed (`RANDOM_STATE = 42`) so the cross-validation folds, ov
 
 - **Domain counts:** proteome-wide Pfam-domain counts from UniProtKB reference proteomes, annotated for Pfam via InterPro. `MammalDomainCount.tsv` is included here for convenience.
 - **Reference phylogeny:** TimeTree - Kumar S, Stecher G, Suleski M, Hedges SB (2017), *Mol Biol Evol* 34(7):1812-1819; and Kumar S et al. (2022), *Mol Biol Evol* 39(8):msac174.
-- **This repository** is archived at `[Zenodo DOI - to be added on release]`.
+- **This repository** is archived on Zenodo at [10.5281/zenodo.21877354](https://doi.org/10.5281/zenodo.21877354), a concept DOI that always resolves to the most recent archived version.
 
 ## Citation
 
 If you use this code or data, please cite:
 
-> Yoon et al., Evolution of mammalian protein domain copy numbers. In preparation.
+> Yoon A, Pellegrini M. Evolution of mammalian protein domain copy numbers. Under review.
 
 Corresponding author: Matteo Pellegrini (matteope@gmail.com), Department of Molecular, Cell, and Developmental Biology, University of California, Los Angeles.
